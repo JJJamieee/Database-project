@@ -24,7 +24,7 @@
 ![image](https://github.com/JJJamieee/Database-project/blob/main/database_delete.gif)
 
 4. 新增
-![image](https://github.com/JJJamieee/Database-project/blob/main/database_create.gif)ㄇ
+![image](https://github.com/JJJamieee/Database-project/blob/main/database_create.gif)
 
 ## Program Detail
 本系統使用Django及SQLite建立。
