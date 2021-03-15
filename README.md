@@ -10,11 +10,21 @@
 - 資料庫：在我們的資料庫中，主要的 entity 有履歷商品、 生產者、餐廳、銷售通路、加工廠商、加工產品(以上銷售通路、生產者、餐廳、加工廠商、加工產品僅包含有販售、生產或使用產銷履歷商品者)。
 
 - ER diagram：
-
+![image] https://github.com/JJJamieee/Database-project/blob/main/image1.jpg
 
 
 ## Feature Demo
 1. 查詢
+![image] https://github.com/JJJamieee/Database-project/blob/main/database_search.gif
+
+2. 編輯
+![image] https://github.com/JJJamieee/Database-project/blob/main/database_edit.gif
+
+3. 刪除
+![image] https://github.com/JJJamieee/Database-project/blob/main/database_delete.gif
+
+4. 新增
+![image] https://github.com/JJJamieee/Database-project/blob/main/database_create.gif
 
 ## Program Detail
 本系統使用Django及SQLite建立。
