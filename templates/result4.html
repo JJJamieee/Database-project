@@ -1,0 +1,89 @@
+{% extends "base_template.html" %}
+
+{% block title %}<h1>銷售通路名稱為 {{sales}} 的資訊</h1>{% endblock %}
+
+{% block result%}
+{% if sales_list %}
+<h2>銷售通路資訊</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">銷售通路ID</th>
+            <th scope="col">銷售通路名稱</th>
+            <th scope="col">電話</th>
+            <th scope="col">地址</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sales in sales_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{sales.銷售通路ID}}</td>
+            <td>{{sales.銷售通路名稱}}</td>
+            <td>{{sales.電話}}</td>
+            <td>{{sales.地址}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if product_list %}
+<h2>販售的產銷履歷商品</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">銷售通路ID</th>
+            <th scope="col">產品名稱</th>
+            <th scope="col">產地</th>
+            <th scope="col">包裝日期</th>
+            <th scope="col">重量</th>
+            <th scope="col">訂貨日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product, s_p in product_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{s_p.銷售通路ID}}</td>
+            <td>{{product.產品名稱}}</td>
+            <td>{{product.產地}}</td>
+            <td>{{product.包裝日期}}</td>
+            <td>{{s_p.重量}}</td>
+            <td>{{s_p.訂貨日期}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if p_product_list %}
+<h2>販售的加工產品</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">銷售通路ID</th>
+            <th scope="col">加工產品名稱</th>
+            <th scope="col">製造日期</th>
+            <th scope="col">重量</th>
+            <th scope="col">訂貨日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p_product, s_pp in p_product_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{s_pp.銷售通路ID}}</td>
+            <td>{{p_product.加工產品名稱}}</td>
+            <td>{{p_product.製造日期}}</td>
+            <td>{{s_pp.重量}}</td>
+            <td>{{s_pp.訂貨日期}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% else %}
+<h3>很抱歉，並沒有這間銷售通路的資訊！</h3>
+{% endif %}
+{% endblock %}

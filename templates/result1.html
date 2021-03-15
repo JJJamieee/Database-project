@@ -1,0 +1,57 @@
+{% extends "base_template.html" %}
+
+{% block title %}<h1>產品名稱為 {{product_name}} 的產銷履歷</h1>{% endblock %}
+
+{% block result%}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">追溯號碼</th>
+            <th scope="col">名稱</th>
+            <th scope="col">生產者名稱</th>
+            <th scope="col">農產品經營業者</th>
+            <th scope="col">產地</th>
+            <th scope="col">包裝日期</th>
+            <th scope="col">驗證機構</th>
+            <th scope="col">產銷作業基準</th>
+            <th scope="col">刪除鈕</th>
+            <th scope="col">編輯鈕</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if product_list %}
+        {% for product, farmer in product_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{product.追溯號碼}}</td>
+            <td>{{product_name}}</td>
+            <td>{{farmer.生產者名稱}}</td>
+            <td>{{farmer.農產品經營業者}}</td>
+            <td>{{product.產地}}</td>
+            <td>{{product.包裝日期}}</td>
+            <td>{{product.驗證機構}}</td>
+            <td>{{product.產銷作業基準}}</td>
+            <td>
+                <form action="{% url 'deleteEntry' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" id="category" name="category" value="{{category}}" style="display: none;">
+                    <input type="text" id="entry" name="entry" value="{{product.追溯號碼}}" style="display: none;">
+                    <button class="btn btn-primary" type="submit">刪除</button>
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'rerouteUpdate' %}" method="GET">
+                    <input type="text" id="category" name="category" value="{{category}}" style="display: none;">
+                    <input type="text" id="entry" name="entry" value="{{product.追溯號碼}}" style="display: none;">
+                    <button class="btn btn-primary" type="submit">編輯</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h3>很抱歉，並沒有這項產品的產銷履歷！</h3>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

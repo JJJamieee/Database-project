@@ -1,0 +1,57 @@
+{% extends "create_template.html" %}
+
+{% block title %}<h1>編輯加工產品資訊(加工批號: {{p_product.加工批號}})</h1>{% endblock %}
+
+{% block button %}{% endblock %}
+
+{% block createResult %}
+{% if success == 1 %}
+<h2>編輯成功！</h2>
+{% for pp in p_product %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">加工批號</th>
+            <th scope="col">名稱</th>
+            <th scope="col">加工廠商ID</th>
+            <th scope="col">產量</th>
+            <th scope="col">製造日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{pp.加工批號}}</td>
+            <td>{{pp.加工產品名稱}}</td>
+            <td>{{pp.加工廠商ID}}</td>
+            <td>{{pp.產量}}</td>
+            <td>{{pp.製造日期}}</td>
+        </tr>
+    </tbody>
+</table>
+{% endfor %}
+{% elif success == 0 %}
+<h2>編輯加工產品失敗！</h2>
+{% else %}
+{% endif %}
+{% endblock %}
+
+{% block form %}
+{% if success == 1 or success == 0%}
+{% else %}
+<form action="{% url 'updateForm3' %}" method="POST">
+    {% csrf_token %}
+    <label for="pproduct-code" class="form-label">加工批號: {{p_product.加工批號}}</label>
+    <input type="text" class="form-control" id="pproduct-code" name="pproduct-code" value="{{p_product.加工批號}}"
+        style="display: none;">
+    <br>
+    <label for="pproduct-name" class="form-label">名稱</label>
+    <input type="text" class="form-control" id="pproduct-name" name="pproduct-name" value="{{p_product.加工產品名稱}}">
+    <label for="pproduct-factory" class="form-label">加工廠商ID: {{p_product.加工廠商ID}}</label>
+    <br>
+    <label for="pproduct-quantity" class="form-label">產量</label>
+    <input type="text" class="form-control" id="pproduct-quantity" name="pproduct-quantity" value="{{p_product.產量}}">
+
+    <button class="btn btn-primary" type="submit">送出修改</button>
+</form>
+{% endif %}
+{% endblock %}

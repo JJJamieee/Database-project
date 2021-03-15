@@ -1,0 +1,68 @@
+{% extends "base_template.html" %}
+
+{% block title %}<h1>生產者名稱為 {{producer_name}} 的資訊</h1>{% endblock %}
+
+{% block result%}
+{% if producer_list %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">生產者名稱</th>
+            <th scope="col">電話</th>
+            <th scope="col">地址</th>
+            <th scope="col">農產品經營業者</th>
+            <th scope="col">刪除鈕</th>
+            <th scope="col">編輯鈕</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producer in producer_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{producer_name}}</td>
+            <td>{{producer.電話}}</td>
+            <td>{{producer.地址}}</td>
+            <td>{{producer.農產品經營業者}}</td>
+            <td>
+                <form action="{% url 'deleteEntry' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" id="category" name="category" value="{{category}}" style="display: none;">
+                    <input type="text" id="entry" name="entry" value="{{producer.生產者ID}}" style="display: none;">
+                    <button class="btn btn-primary" type="submit">刪除</button>
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'rerouteUpdate' %}" method="GET">
+                    <input type="text" id="category" name="category" value="{{category}}" style="display: none;">
+                    <input type="text" id="entry" name="entry" value="{{producer.生產者ID}}" style="display: none;">
+                    <button class="btn btn-primary" type="submit">編輯</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if product_list %}
+<h2>生產的產銷履歷商品</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">產品名稱</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in product_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{product.產品名稱}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% else %}
+<h3>很抱歉，並沒有這個生產者的資訊！</h3>
+{% endif %}
+{% endblock %}

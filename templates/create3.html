@@ -1,0 +1,45 @@
+{% extends "create_template.html" %}
+
+{% block title %}<h1>新增加工廠商</h1>{% endblock %}
+
+{% block createResult %}
+{% if success == 1 %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">加工廠商ID</th>
+            <th scope="col">名稱</th>
+            <th scope="col">電話</th>
+            <th scope="col">地址</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{factory.加工廠商ID}}</td>
+            <td>{{factory.加工廠商名稱}}</td>
+            <td>{{factory.電話}}</td>
+            <td>{{factory.地址}}</td>
+        </tr>
+    </tbody>
+</table>
+{% elif success == 0 %}
+<h2>新增加工廠商失敗！可能原因：加工廠商ID重複</h2>
+{% else %}
+{% endif %}
+{% endblock %}
+
+{% block form %}
+<form action="{% url 'createForm3' %}" method="POST">
+    {% csrf_token %}
+    <label for="factory-id" class="form-label">加工廠商ID</label>
+    <input type="text" class="form-control" id="factory-id" name="factory-id">
+    <label for="factory-name" class="form-label">名稱</label>
+    <input type="text" class="form-control" id="factory-name" name="factory-name">
+    <label for="factory-phone" class="form-label">電話</label>
+    <input type="text" class="form-control" id="factory-phone" name="factory-phone">
+    <label for="factory-address" class="form-label">地址</label>
+    <input type="text" class="form-control" id="factory-address" name="factory-address">
+
+    <button class="btn btn-primary" type="submit">新增</button>
+</form>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "create_template.html" %}
+
+{% block title %}<h1>編輯生產者資訊(生產者ID: {{farmer.生產者ID}})</h1>{% endblock %}
+
+{% block button %}{% endblock %}
+
+{% block createResult %}
+{% if success == 1 %}
+<h2>編輯成功！</h2>
+{% for f in farmer %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">生產者ID</th>
+            <th scope="col">名稱</th>
+            <th scope="col">電話</th>
+            <th scope="col">地址</th>
+            <th scope="col">農產品經營業者</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{f.生產者ID}}</td>
+            <td>{{f.生產者名稱}}</td>
+            <td>{{f.電話}}</td>
+            <td>{{f.地址}}</td>
+            <td>{{f.農產品經營業者}}</td>
+        </tr>
+    </tbody>
+</table>
+{% endfor %}
+{% elif success == 0 %}
+<h2>編輯產銷履歷商品失敗！</h2>
+{% else %}
+{% endif %}
+{% endblock %}
+
+{% block form %}
+{% if success == 1 or success == 0%}
+{% else %}
+<form action="{% url 'updateForm2' %}" method="POST">
+    {% csrf_token %}
+    <label for="farmer-id" class="form-label">生產者ID: {{farmer.生產者ID}}</label>
+    <input type="text" class="form-control" id="farmer-id" name="farmer-id" value="{{farmer.生產者ID}}"
+        style="display: none;">
+    <br>
+    <label for="farmer-name" class="form-label">名稱</label>
+    <input type="text" class="form-control" id="farmer-name" name="farmer-name" value="{{farmer.生產者名稱}}">
+    <label for="farmer-phone" class="form-label">電話</label>
+    <input type="text" class="form-control" id="farmer-phone" name="farmer-phone" value="{{farmer.電話}}">
+    <label for="farmer-address" class="form-label">地址</label>
+    <input type="text" class="form-control" id="farmer-address" name="farmer-address" value="{{farmer.地址}}">
+    <label for="farmer-business" class="form-label">農產品經營業者</label>
+    <input type="text" class="form-control" id="farmer-business" name="farmer-business" value="{{farmer.農產品經營業者}}">
+
+    <button class="btn btn-primary" type="submit">送出修改</button>
+</form>
+{% endif %}
+{% endblock %}

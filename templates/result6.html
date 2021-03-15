@@ -1,0 +1,83 @@
+{% extends "base_template.html" %}
+
+{% block title %}<h1>加工產品名稱為 {{p_product_name}} 的資訊</h1>{% endblock %}
+
+{% block result%}
+{% if p_product_list %}
+<h2>加工產品基本資訊</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">加工批號</th>
+            <th scope="col">名稱</th>
+            <th scope="col">加工批號</th>
+            <th scope="col">製造日期</th>
+            <th scope="col">產量</th>
+            <th scope="col">加工廠商名稱</th>
+            <th scope="col">加工廠商地址</th>
+            <th scope="col">加工廠商電話</th>
+            <th scope="col">刪除鈕</th>
+            <th scope="col">編輯鈕</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p_product, factory in p_product_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{p_product.加工批號}}</td>
+            <td>{{p_product.加工產品名稱}}</td>
+            <td>{{p_product.加工批號}}</td>
+            <td>{{p_product.製造日期}}</td>
+            <td>{{p_product.產量}}</td>
+            <td>{{factory.加工廠商名稱}}</td>
+            <td>{{factory.地址}}</td>
+            <td>{{factory.電話}}</td>
+            <td>
+                <form action="{% url 'deleteEntry' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" id="category" name="category" value="{{category}}" style="display: none;">
+                    <input type="text" id="entry" name="entry" value="{{p_product.加工批號}}" style="display: none;">
+                    <button class="btn btn-primary" type="submit">刪除</button>
+                </form>
+            </td>
+            <td>
+                <form action="{% url 'rerouteUpdate' %}" method="GET">
+                    <input type="text" id="category" name="category" value="{{category}}" style="display: none;">
+                    <input type="text" id="entry" name="entry" value="{{p_product.加工批號}}" style="display: none;">
+                    <button class="btn btn-primary" type="submit">編輯</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if product_list %}
+<h2>使用的產銷履歷商品</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">加工批號</th>
+            <th scope="col">追溯號碼</th>
+            <th scope="col">產品名稱</th>
+            <th scope="col">產地</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product, p_t in product_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{p_t.加工批號}}</td>
+            <td>{{product.追溯號碼}}</td>
+            <td>{{product.產品名稱}}</td>
+            <td>{{product.產地}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% else %}
+<h3>很抱歉，並沒有這項加工產品的資訊！</h3>
+{% endif %}
+{% endblock %}

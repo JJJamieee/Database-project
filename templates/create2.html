@@ -1,0 +1,49 @@
+{% extends "create_template.html" %}
+
+{% block title %}<h1>新增生產者</h1>{% endblock %}
+
+{% block createResult %}
+{% if success == 1 %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">生產者ID</th>
+            <th scope="col">名稱</th>
+            <th scope="col">電話</th>
+            <th scope="col">地址</th>
+            <th scope="col">農產品經營業者</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{farmer.生產者ID}}</td>
+            <td>{{farmer.生產者名稱}}</td>
+            <td>{{farmer.電話}}</td>
+            <td>{{farmer.地址}}</td>
+            <td>{{farmer.農產品經營業者}}</td>
+        </tr>
+    </tbody>
+</table>
+{% elif success == 0 %}
+<h2>新增生產者失敗！可能原因：生產者ID重複</h2>
+{% else %}
+{% endif %}
+{% endblock %}
+
+{% block form %}
+<form action="{% url 'createForm2' %}" method="POST">
+    {% csrf_token %}
+    <label for="farmer-id" class="form-label">生產者ID</label>
+    <input type="text" class="form-control" id="farmer-id" name="farmer-id">
+    <label for="farmer-name" class="form-label">名稱</label>
+    <input type="text" class="form-control" id="farmer-name" name="farmer-name">
+    <label for="farmer-phone" class="form-label">電話</label>
+    <input type="text" class="form-control" id="farmer-phone" name="farmer-phone">
+    <label for="farmer-address" class="form-label">地址</label>
+    <input type="text" class="form-control" id="farmer-address" name="farmer-address">
+    <label for="farmer-business" class="form-label">農產品經營業者</label>
+    <input type="text" class="form-control" id="farmer-business" name="farmer-business">
+
+    <button class="btn btn-primary" type="submit">新增</button>
+</form>
+{% endblock %}
