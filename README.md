@@ -27,7 +27,7 @@
 ![image](https://github.com/JJJamieee/Database-project/blob/main/database_create.gif)
 
 ## Program Detail
-本系統使用Django及SQLite建立。
+本系統使用了Django、SQLite、Bootstrap。
 
 - 前端除了將後端傳了的資料以表格顯示之外，還要在每列產生編輯鈕和刪除鈕，這兩個按鈕都分別是form的submit鈕，form裡包含了兩個隱藏的input，value分別設定為目前的項目種類(e.g.生產者or加工產品等)及該項的ID。
 - 所有的查詢都由同一個函數來處理，先判斷dropdown list選擇的是哪一項，再對資料庫做query。
